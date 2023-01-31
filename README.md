@@ -14,7 +14,7 @@ This project repository ___eCommerceSite___ is currently ongoing by [Tung Kim](h
 This project is to build a website with ASP.NET MVC web app and Entity Framework Core to work with Database
 ### Purpose
 Gain experience and knowledge of:
-- ASP.NET MVC
+- ASP.NET MVC webapp
 - Entity Framework Core
 - CRUD Functionality
 - Bootstrap
