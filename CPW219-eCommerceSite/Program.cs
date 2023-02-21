@@ -6,8 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 	// Register the GameContext
-builder.Services.AddDbContext<GameContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<GameContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 	// Add the database exception filter
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

@@ -24,7 +24,7 @@ namespace CPW219_eCommerceSite.Controllers
 
             // Show them on the page
 
-            return View(games);
+            return View(games2);
         }
 
         [HttpGet]
