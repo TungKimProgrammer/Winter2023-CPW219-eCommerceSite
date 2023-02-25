@@ -15,16 +15,51 @@ namespace CPW219_eCommerceSite.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
+            const int NumGamesToDisplayPerPage = 3;
+            const int PageOffset = 1; // Need a page offset to use current page and figure out, num games to offset
+
+            int currPage = id ?? 1; // Set currPage to id if it has a maxNumPages, otherwise use 1
+
+            int totalNumOfProducts = await _context.Games.CountAsync();
+
+            double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumGamesToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages); // Rounding pages up, to next whole page number
+
+
+            // int currPage = id.HasValue ? id.Value : 1;
+            /*
+            if (id.HasValue)
+            {
+                currPage = id.Value;
+            }
+            else
+            {
+                currPage = 1;
+            }
+            */
+
+
             // Get all games from the DB
-            List<Game> games = _context.Games.ToList();
+
+            // two methods of syntax as query syntax
+            List<Game> games = await _context.Games.Skip(NumGamesToDisplayPerPage * (currPage - PageOffset))
+                                                   .Take(NumGamesToDisplayPerPage)
+                                                   .ToListAsync();
+
             List<Game> games2 = await (from game in _context.Games
                                        select game).ToListAsync();
 
-            // Show them on the page
+            List<Game> games3 = await (from game in _context.Games
+                                       select game).Skip(NumGamesToDisplayPerPage * (currPage - PageOffset))
+                                                   .Take(NumGamesToDisplayPerPage)
+                                                   .ToListAsync();
 
-            return View(games);
+            GameCatalogViewModel catalogModel = new(games, lastPage, currPage);
+
+            // Show them on the page
+            return View(catalogModel);
         }
 
         [HttpGet]
