@@ -20,7 +20,13 @@ namespace CPW219_eCommerceSite.Controllers
             const int NumGamesToDisplayPerPage = 3;
             const int PageOffset = 1; // Need a page offset to use current page and figure out, num games to offset
 
-            int currPage = id ?? 1; // Set currPage to id if it has a value, otherwise use 1
+            int currPage = id ?? 1; // Set currPage to id if it has a maxNumPages, otherwise use 1
+
+            int totalNumOfProducts = await _context.Games.CountAsync();
+
+            double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumGamesToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages); // Rounding pages up, to next whole page number
+
 
             // int currPage = id.HasValue ? id.Value : 1;
             /*
@@ -50,10 +56,10 @@ namespace CPW219_eCommerceSite.Controllers
                                                    .Take(NumGamesToDisplayPerPage)
                                                    .ToListAsync();
 
+            GameCatalogViewModel catalogModel = new(games, lastPage, currPage);
 
             // Show them on the page
-
-            return View(games3);
+            return View(catalogModel);
         }
 
         [HttpGet]
