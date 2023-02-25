@@ -3,7 +3,7 @@
 namespace CPW219_eCommerceSite.Models
 {
     /// <summary>
-    /// 
+    /// Represent a Registered Member
     /// </summary>
     public class Member
     {
