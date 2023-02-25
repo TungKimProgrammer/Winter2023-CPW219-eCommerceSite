@@ -26,6 +26,20 @@ namespace CPW219_eCommerceSite.Models
         [Range(0, double.MaxValue)]
         public double Price { get; set; }
 
+        
+
         // Todo: Add Rating
+    }
+
+    /// <summary>
+    /// A single video game that has been add to the users shopping cart cookie
+    /// </summary>
+    public class CartGameViewModel
+    {
+        public int GameId { get; set; }
+
+        public string Title { get; set; }
+
+        public double Price { get; set; }
     }
 }
